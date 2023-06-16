@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "liblista_ordenada.h"
+#include "liblista_circular.h"
 #define MAX 5
 
 lista_t *teste_criar_lista()
@@ -40,23 +40,29 @@ void teste_lista_vazia (lista_t* l)
 }
 
 void teste_imprime_lista(lista_t *l) {
+    if (lista_vazia(l)) {
+        printf("Lista vazia\n");
+        return;
+    }
+
     nodo_t *aux = l->ini;
 
-    while (aux != NULL) {
-        printf("Chave atual eh: %d\n", aux->elemento->chave);
+    do {
+        printf("Chave atual é: %d\n", aux->elemento->chave);
         aux = aux->prox;
-    }
+    } while (aux != l->ini);
 }
+
 
 void teste_insere(lista_t *l, elemento_t *e)
 {
-	printf ("\tTentando inserir a chave %d\n", e->chave);
+    printf ("\tTentando inserir a chave %d\n", e->chave);
 
     if (!lista_insere_ordenado(l, e))
     {
         printf ("Elemento nao inserido.\n");
-		return;
-	}
+        return;
+    }
 
     printf ("Elemento inserido com sucesso.\n");
     return;
@@ -64,13 +70,13 @@ void teste_insere(lista_t *l, elemento_t *e)
 
 void teste_remove(lista_t *l, elemento_t *e)
 {
-	printf ("\tTentando remover a chave %d\n", e->chave);
+    printf ("\tTentando remover a chave %d\n", e->chave);
 
     if (!lista_remove_ordenado(l, e))
     {
         printf ("Elemento nao removido. Elemento inexistente na lista ou lista vazia.\n");
-		return;
-	}
+        return;
+    }
 
     printf ("Elemento removido com sucesso.\n");
     return;
@@ -78,13 +84,13 @@ void teste_remove(lista_t *l, elemento_t *e)
 
 void teste_search(lista_t *l, elemento_t *e)
 {
-	printf ("\tBuscando a chave %d\n", e->chave);
+    printf ("\tBuscando a chave %d\n", e->chave);
 
     if (!lista_search_ordenado(l, e))
     {
         printf ("Elemento inexistente na lista.\n");
-		return;
-	}
+        return;
+    }
 
     printf ("Elemento encontrado com sucesso.\n");
     return;
@@ -100,7 +106,7 @@ int main (void)
     lista1 = teste_criar_lista();
     teste_lista_vazia(lista1);
     printf("\n\n");
-	
+
     printf("Teste 2: criar elemento:\n");
     printf("Esperado: tem que criar elemento alocado\n");
     e1 = teste_criar_elemento(15);
@@ -109,10 +115,9 @@ int main (void)
     printf("Teste 3: tenta remover elemento com lista vazia:\n");
     printf("Esperado: nao pode ter dado segfault\n");
     teste_remove(lista1, e1);
-	free(e1);
+    free(e1);
     e1 = NULL;
-    free(lista1);
-    lista1 = NULL;
+    lista_destroi(&lista1);
     printf ("\n\n");
 
     printf("Teste 4: inserir 5 elementos:\n");
@@ -141,7 +146,7 @@ int main (void)
     printf ("Esperado: nao pode ter leak (conferir com valdrind)\n");
     printf ("          E nao pode ter segfault\n");
     lista2 = lista_cria();
-    lista_destroi (&lista2);
+    lista_destroi(&lista2);
     printf ("\n\n");
 
     printf ("Teste 7: destruir uma lista com elementos:\n");
