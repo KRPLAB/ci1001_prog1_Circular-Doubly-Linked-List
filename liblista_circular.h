@@ -45,6 +45,9 @@ typedef struct lista {
 */
 lista_t *lista_cria ();
 
+/* Retorna 1 se a lista esta vazia e 0 caso contrario */
+int lista_vazia (lista_t *l);
+
 /* 
  * Cria um elemento 
 */
@@ -54,6 +57,11 @@ elemento_t *elemento_cria (int dado);
  * Destroi a Lista e a aponta para NULL
 */ 
 void lista_destroi (lista_t **l);
+
+/* 
+ * Destroi um elemento e o aponta para null
+*/ 
+void elemento_destroi(elemento_t **elemento);
 
 /* 
  * Adiciona um elemento em ordem de acordo com o valor elemento->chave na Lista. 
@@ -67,5 +75,8 @@ int lista_insere_ordenado (lista_t *l, elemento_t *elemento);
 */
 int lista_remove_ordenado (lista_t *l, elemento_t *elemento);
 
-/* Retorna 1 se a lista esta vazia e 0 caso contrario */
-int lista_vazia (lista_t *l);
+/* 
+ * Busca o elemento na Lista sem inserir ou remover.
+ * Retorna 1 caso o elemento exista e 0 se não existir na Lista.
+*/
+int lista_search_ordenado (lista_t *l, elemento_t *elemento);
