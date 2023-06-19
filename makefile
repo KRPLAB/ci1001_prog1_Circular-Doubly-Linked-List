@@ -19,5 +19,3 @@ testa_lista_circular.o: testa_lista_circular.c
 
 clean:
 	rm -f $(objects) testa_lista_circular
-
-

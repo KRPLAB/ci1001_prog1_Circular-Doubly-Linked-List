@@ -82,11 +82,23 @@ int lista_insere_ordenado(lista_t *l, elemento_t *elemento)
 	 * venha a ser o primeiro da lista*/
 	if (lista_vazia(l))
 	{
-		novo->prox = novo;
-		novo->prev = novo;
+		l->ini = novo;
+		novo->prox = l->ini;
+		novo->prev = l->ini;
+		return 1;
+	}
+
+	/*caso o novo elemento seja menor que o
+	* primeiro da lista*/
+	if (novo->elemento->chave < l->ini->elemento->chave)
+	{
+		novo->prox = l->ini;
+		novo->prev = l->ini->prev;
+		novo->prev->prox = novo;
 		l->ini = novo;
 		return 1;
 	}
+
 
 	/*caso o novo elemento seja o maior da lista
 	 * e venha a ser o último da lista*/
@@ -94,16 +106,16 @@ int lista_insere_ordenado(lista_t *l, elemento_t *elemento)
 	{
 		novo->prox = l->ini;
 		novo->prev = l->ini->prev;
-		l->ini->prev->prox = novo;
+		novo->prev->prox = novo;
 		l->ini->prev = novo;
-		l->ini = novo;
 		return 1;
 	}
 
 	/*caso a posicao do novo elemento seja outro
 	 * lugar exceto a menor e maior posicao*/
 	aux = l->ini;
-	while (novo->elemento->chave > aux->elemento->chave)
+	while (aux->prox != l->ini &&
+				novo->elemento->chave > aux->elemento->chave)
 	{
 		ant = aux;
 		aux = aux->prox;

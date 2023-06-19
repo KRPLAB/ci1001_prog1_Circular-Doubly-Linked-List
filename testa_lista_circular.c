@@ -48,7 +48,7 @@ void teste_imprime_lista(lista_t *l) {
     nodo_t *aux = l->ini;
 
     do {
-        printf("Chave atual é: %d\n", aux->elemento->chave);
+        printf("Chave atual eh: %d\n", aux->elemento->chave);
         aux = aux->prox;
     } while (aux != l->ini);
 }
