@@ -2,7 +2,7 @@
  * Implementa o TAD Lista Ordenada
  * Feito em C para a disciplina CI1001 - Programacao 1 
  *
- * Versao 1.0.0 23/05/2023
+ * Versao 1.0.0 20/06/2023
  */
 
 /*
