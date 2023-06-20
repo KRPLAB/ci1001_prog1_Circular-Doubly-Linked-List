@@ -193,5 +193,8 @@ int main (void)
     elemento_destroi(&e4);
     printf ("\n\n");
 
+    /*trabalho finalizado. erros de vazamento
+    * de memória corrigidos em 20/06/2023*/
+
     return 0;
 }
