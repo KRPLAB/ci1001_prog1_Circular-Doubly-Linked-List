@@ -36,17 +36,20 @@ void lista_destroi(lista_t **l)
 	nodo_t *atual, *proximo;
 
 	if (lista_vazia((*l)))
+	{
+		free((*l));
+		(*l) = NULL;
 		return;
+	}
 
-	atual = (*l)->ini;
+	atual = (*l)->ini->prox;
 	proximo = atual;
 
-	/*enquanto a lista ter mais que um elemento e
-	 * e não estiver vazia o looping eh feito*/
-	while (proximo != NULL && proximo != (*l)->ini)
+	/*enquanto a lista ter mais que um elemento e 
+	* esse elemento nao for o primeiro looping eh feito*/
+	while (proximo != ((*l))->ini)
 	{
 		proximo = atual->prox;
-
 		free(atual->elemento);
 		free(atual);
 		atual = proximo;
@@ -55,8 +58,8 @@ void lista_destroi(lista_t **l)
 	free(atual->elemento);
 	free(atual);
 
-	free(*l);
-	(*l) = NULL;
+	free((*l));
+	((*l)) = NULL;
 	return;
 }
 
