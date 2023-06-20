@@ -1,4 +1,4 @@
-# Makefile básico
+# Makefile para efetuar testes
      
 CFLAGS = -Wall -std=c99 -g  # flags de compilacao
 LDFLAGS = -lm
